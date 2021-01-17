@@ -1,23 +1,30 @@
+/* eslint-disable */
+import React, { useState } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  let [ title, setTitle ] = useState({ 0 : 'title1', 1: 'title2', 2: 'title3'});
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="black-nav">
+        <h1>개발자 Blog</h1>
+      </div>
+      <ul className="list">
+        <li className="list__item">
+          <h3>{title[0]}</h3>
+          <p>발행일 2월 17일</p>
+        </li>
+        <li className="list__item">
+          <h3>{title[1]}</h3>
+          <p>발행일 2월 17일</p>
+        </li>
+        <li className="list__item">
+          <h3>{title[2]}</h3>
+          <p>발행일 2월 17일</p>
+        </li>
+      </ul>
     </div>
   );
 }
