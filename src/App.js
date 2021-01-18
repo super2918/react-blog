@@ -33,9 +33,9 @@ function App() {
     setTitle(sortData)
    }
 
-  //  const toggleModal = () => {
-  //  setOpenModal(!openModal);
-  //  }
+   const toggleModal = () => {
+   setOpenModal(!openModal);
+   }
 
   const showModal = () => {
     setOpenModal(true);
@@ -84,6 +84,10 @@ function App() {
           <p>발행일 2월 17일</p>
         </li>
       </ul>
+
+      <div className="button-wrap">
+        <button type="button" onClick={ toggleModal }>Modal</button>
+      </div>
 
       {
         openModal === true ? <Modal handler={ closeModal }/> :  null
