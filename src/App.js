@@ -11,8 +11,8 @@ function App() {
   let [ count, setCount] = useState(0);
 
   function handleButtonClick() {
-    const newData = [...title]; // deep copy array랑 objdect랑 생각
-    newData[0] = '여자코트 추천';
+    const newData = [ ...title ];
+    newData[0]= '여자코트 추천';
     setTitle(newData);
   }
 
@@ -70,6 +70,13 @@ function App() {
           <p>발행일 2월 17일</p>
         </li>
       </ul>
+
+      <div className="modal">
+        <h2>제목</h2>
+        <p>날짜</p>
+        <p>상세내용</p>
+      </div>
+      
     </div>
   );
 }
