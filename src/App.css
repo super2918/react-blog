@@ -57,6 +57,10 @@ ol, ul, li {
   color: white;
 }
 
+.button--sort {
+  font-weight: 500;
+}
+
 .button__wrap {
   display: flex;
   justify-content: flex-end;
