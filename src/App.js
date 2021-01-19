@@ -4,8 +4,6 @@ import { faFilter } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './App.css';
 
-// 정렬기능 정렬 추가 에정
-
 function App() {
   let [ title, setTitle ] = useState(['남자코드', '하남 맛집', '여의도 맛집']);
   let [ count, setCount ] = useState([0, 0, 0]);
