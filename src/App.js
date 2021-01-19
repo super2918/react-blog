@@ -8,7 +8,7 @@ import './App.css';
 
 function App() {
   let [ title, setTitle ] = useState(['남자코드', '하남 맛집', '여의도 맛집']);
-  let [ count, setCount] = useState(0);
+  let [ count, setCount ] = useState([0, 0, 0]);
   let [ openModal , setOpenModal ] = useState(false);
 
   const handleButtonClick = () => {
@@ -27,24 +27,30 @@ function App() {
     return 0
   }
 
-   const sortButtonClick = () => {
+  const sortButtonClick = () => {
     const sortData = [...title];
     sortData.sort(compare);
     setTitle(sortData)
-   }
+  }
 
-   const toggleModal = () => {
-   setOpenModal(!openModal);
-   }
+  const toggleModal = () => {
+    setOpenModal(!openModal);
+  }
 
   const showModal = () => {
     setOpenModal(true);
-  }
+  } 
 
   const closeModal = () => {
     setOpenModal(false);
   }
 
+  const handleCountClick = (i) => {
+    let index = i;
+    let countArray = [...count];
+    countArray[index]++;
+    setCount(countArray);
+  }
 
   return (
     <div className="App">
@@ -56,33 +62,27 @@ function App() {
         <button type="button" className="button button--modify" onClick={ handleButtonClick }>수정</button>
       </div>
       <ul className="list">
-        <li className="list__item">
-          <div className="list__title">
-            <h3>{title[0]}</h3>
-            <div className="like-count">
-              <span onClick={ () => { setCount(count + 1) } }>👍🏻</span>{count}
-            </div>
-          </div>
-          <p>발행일 2월 17일</p>
-        </li>
-        <li className="list__item">
-          <div className="list__title">
-            <h3>{title[1]}</h3>
-            <div className="like-count">
-              <span onClick={ () => { setCount(count + 1) } }>👍🏻</span>{count}
-            </div>
-          </div>
-          <p>발행일 2월 17일</p>
-        </li>
-        <li className="list__item">
-          <div className="list__title" onClick={ showModal }>
-            <h3>{title[2]}</h3>
-            <div className="like-count">
-              <span onClick={ () => { setCount(count + 1) } }>👍🏻</span>{count}
-            </div>
-          </div>
-          <p>발행일 2월 17일</p>
-        </li>
+        {
+          title.map((item, i) => {
+            return (
+              <li className="list__item" key={i}>
+              <div className="list__title">
+                <h3 onClick={ showModal }>{item}</h3>
+                <div className="like-count">
+                  {/* <span onClick={ () => {
+                    let index = i;
+                    let countArray = [...count];
+                    countArray[index]++;
+                    setCount(copy);
+                  }}>👍🏻</span>{count[i]} */}
+                  <span onClick={() => handleCountClick(i)}>👍🏻</span>{count[i]}
+                </div>
+              </div>
+              <p>발행일 2월 17일</p>
+            </li>
+            );
+          })
+        }
       </ul>
 
       <div className="button-wrap">
@@ -90,18 +90,23 @@ function App() {
       </div>
 
       {
-        openModal === true ? <Modal handler={ closeModal }/> :  null
+        openModal === true 
+        ? <Modal
+            closeModal={ closeModal }
+            title={title}
+          /> 
+        :  null
       }
 
     </div>
   );
 }
 
-function Modal({ handler }) {
+function Modal(props) {
   return (
     <div className="modal">
-      <button type="button" className="modal__close" onClick={ handler }>닫기</button>
-      <h2>제목</h2>
+      <button type="button" className="modal__close" onClick={ props.closeModal }>닫기</button>
+      <h2>{ props.title[0] }</h2>
       <p>날짜</p>
       <p>상세내용</p>
     </div> 
