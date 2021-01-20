@@ -8,6 +8,7 @@ function App() {
   let [ title, setTitle ] = useState(['남자코드', '하남 맛집', '여의도 맛집']);
   let [ count, setCount ] = useState([0, 0, 0]);
   let [ openModal , setOpenModal ] = useState(false);
+  let [ modalTitle, setModalTitle ] = useState(0);
 
   const handleButtonClick = () => {
     const newData = [ ...title ];
@@ -50,6 +51,7 @@ function App() {
     setCount(countArray);
   }
 
+
   return (
     <div className="App">
       <div className="black-nav">
@@ -63,16 +65,10 @@ function App() {
         {
           title.map((item, i) => {
             return (
-              <li className="list__item" key={i}>
+              <li className="list__item" key={i} onClick={ () => { showModal(i) }}>
               <div className="list__title">
-                <h3 onClick={ showModal }>{item}</h3>
+                <h3 onClick={ () => {setModalTitle(i)}}>{item}</h3>
                 <div className="like-count">
-                  {/* <span onClick={ () => {
-                    let index = i;
-                    let countArray = [...count];
-                    countArray[index]++;
-                    setCount(copy);
-                  }}>👍🏻</span>{count[i]} */}
                   <span onClick={() => handleCountClick(i)}>👍🏻</span>{count[i]}
                 </div>
               </div>
@@ -85,13 +81,17 @@ function App() {
 
       <div className="button-wrap">
         <button type="button" onClick={ toggleModal }>Modal</button>
+        {/* <button type="button" onClick={() => {setModalTitle(0)}}>버튼1</button>
+        <button type="button" onClick={() => {setModalTitle(1)}}>버튼2</button>
+        <button type="button" onClick={() => {setModalTitle(2)}}>버튼3</button> */}
       </div>
 
       {
         openModal === true 
         ? <Modal
             closeModal={ closeModal }
-            title={title}
+            title={ title }
+            modalTitle={ modalTitle }
           /> 
         :  null
       }
@@ -104,7 +104,7 @@ function Modal(props) {
   return (
     <div className="modal">
       <button type="button" className="modal__close" onClick={ props.closeModal }>닫기</button>
-      <h2>{ props.title[0] }</h2>
+      <h2>{ props.title[props.modalTitle] }</h2>
       <p>날짜</p>
       <p>상세내용</p>
     </div> 
