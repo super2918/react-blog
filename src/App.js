@@ -6,9 +6,10 @@ import './App.css';
 
 function App() {
   let [ title, setTitle ] = useState(['남자코드', '하남 맛집', '여의도 맛집']);
-  let [ count, setCount ] = useState([0, 0, 0]);
+  let [ count, setCount ] = useState([0, 5, 10]);
   let [ openModal , setOpenModal ] = useState(false);
   let [ modalTitle, setModalTitle ] = useState(0);
+  let [ inputValue, setInputValue ] = useState('');
 
   const handleButtonClick = () => {
     const newData = [ ...title ];
@@ -51,25 +52,37 @@ function App() {
     setCount(countArray);
   }
 
+  const onChangeInputValue = (e) => {
+    let value = e.target.value;
+    setInputValue(value);
+  }
+
+  const saveButtonClick = (i) => {
+    const newItem = [...title];
+    newItem.unshift(inputValue);
+    setTitle(newItem);
+  }
 
   return (
     <div className="App">
       <div className="black-nav">
         <h1>개발자 Blog</h1>
       </div>
+
       <div className="button__wrap">
         <button type="button" className="button button--sort" onClick={ sortButtonClick }><FontAwesomeIcon icon={ faFilter } />정렬</button>
         <button type="button" className="button button--modify" onClick={ handleButtonClick }>수정</button>
       </div>
+
       <ul className="list">
         {
           title.map((item, i) => {
             return (
-              <li className="list__item" key={i} onClick={ () => { showModal(i) }}>
+              <li className="list__item" key={i}>
               <div className="list__title">
-                <h3 onClick={ () => {setModalTitle(i)}}>{item}</h3>
+                <h3 onClick={ () => { setModalTitle(i), showModal(i) }}>{item}</h3>
                 <div className="like-count">
-                  <span onClick={() => handleCountClick(i)}>👍🏻</span>{count[i]}
+                  <span onClick={() => {handleButtonClick()}}>👍🏻</span>{count[i]}
                 </div>
               </div>
               <p>발행일 2월 17일</p>
@@ -79,12 +92,14 @@ function App() {
         }
       </ul>
 
-      <div className="button-wrap">
-        <button type="button" onClick={ toggleModal }>Modal</button>
-        {/* <button type="button" onClick={() => {setModalTitle(0)}}>버튼1</button>
-        <button type="button" onClick={() => {setModalTitle(1)}}>버튼2</button>
-        <button type="button" onClick={() => {setModalTitle(2)}}>버튼3</button> */}
+      <div className="input-wrap">
+        <input type="text" onChange={ onChangeInputValue } />
+        <button type="button" onClick={ saveButtonClick }>저장</button>
       </div>
+
+      {/* <div className="button-wrap">
+        <button type="button" onClick={ toggleModal }>Modal</button>
+      </div> */}
 
       {
         openModal === true 
@@ -100,11 +115,11 @@ function App() {
   );
 }
 
-function Modal(props) {
+function Modal( props ) {
   return (
     <div className="modal">
       <button type="button" className="modal__close" onClick={ props.closeModal }>닫기</button>
-      <h2>{ props.title[props.modalTitle] }</h2>
+      <h2>{ props.title[ props.modalTitle ] }</h2>
       <p>날짜</p>
       <p>상세내용</p>
     </div> 
