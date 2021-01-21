@@ -6,7 +6,7 @@ import './App.css';
 
 function App() {
   let [ title, setTitle ] = useState(['남자코드', '하남 맛집', '여의도 맛집']);
-  let [ count, setCount ] = useState([0, 5, 10]);
+  let [ count, setCount ] = useState(['0', '0', '0']);
   let [ openModal , setOpenModal ] = useState(false);
   let [ modalTitle, setModalTitle ] = useState(0);
   let [ inputValue, setInputValue ] = useState('');
@@ -82,7 +82,7 @@ function App() {
               <div className="list__title">
                 <h3 onClick={ () => { setModalTitle(i), showModal(i) }}>{item}</h3>
                 <div className="like-count">
-                  <span onClick={() => {handleButtonClick()}}>👍🏻</span>{count[i]}
+                  <span onClick={ () => {handleCountClick(i)} }>👍🏻</span>{count[i]}
                 </div>
               </div>
               <p>발행일 2월 17일</p>
@@ -91,6 +91,8 @@ function App() {
           })
         }
       </ul>
+
+      <Profile />
 
       <div className="input-wrap">
         <input type="text" onChange={ onChangeInputValue } />
@@ -113,6 +115,7 @@ function App() {
 
     </div>
   );
+
 }
 
 function Modal( props ) {
@@ -125,5 +128,33 @@ function Modal( props ) {
     </div> 
   );
 }
+
+
+class Profile extends React.Component {
+  constructor(){
+    super();
+    this.state = { name : 'Kim', age : 30 }
+  }
+
+  // chageName() {
+  //   this.setState({name: 'Park'})
+  // }
+
+  chageName = () => { 
+    this.setState({name: 'Park'})
+  }
+
+  render(){
+    return (
+      <>  
+        <div>저는 { this.state.name } 입니다.</div>
+        <button onClick={ this.chageName }>버튼</button>
+        {/* <button onClick={this.chageName.bind(this)}>버튼</button> */}
+        {/* <button onClick={() => {this.setState( { name: 'park' })}}>버튼</button> */}
+      </>
+    )
+  }
+}
+
 
 export default App;
